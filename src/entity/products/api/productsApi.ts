@@ -12,22 +12,32 @@ export interface ProductsParams {
   filter: ProductsFilter;
 }
 
+interface Review {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+}
+
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail: string;
+  rating: number;
+  reviews: Review[];
+}
+
 export interface ProductsResponse {
-  products: {
-    id: number;
-    title: string;
-    description: string;
-    thumbnail: string;
-    rating: number;
-    reviews: number;
-  }[];
+  products: Product[];
   total: number;
   skip: number;
   limit: number;
 }
 
 export const productsApi = {
-  getProducts: async ({ limit = 10, skip = 0, filter }: ProductsParams) => {
+  getProducts: async ({ limit, skip, filter }: ProductsParams) => {
     const response = await ky<ProductsResponse>(
       'https://dummyjson.com/products/search',
       {

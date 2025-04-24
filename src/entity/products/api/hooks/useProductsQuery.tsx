@@ -7,7 +7,7 @@ const productsQueryKey = {
   all: ['products'],
 };
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 20;
 const DEFAULT_SKIP = 0;
 
 export const useProductsQuery = ({
