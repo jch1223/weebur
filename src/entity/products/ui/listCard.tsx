@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardTitle,
 } from '@/shared/ui/card';
+import { Skeleton } from '@/shared/ui/skeleton';
 
 type ListCardProps = Omit<Product, 'id'>;
 
@@ -45,3 +46,21 @@ export const ListCard = ({
     </Card>
   );
 };
+
+const ListCardSkeleton = () => {
+  return (
+    <Card className="w-full">
+      <CardContent className="flex gap-6">
+        <Skeleton className="h-25 w-25 shrink-0" />
+
+        <div className="flex w-full flex-col justify-between gap-2">
+          <Skeleton className="h-5" />
+          <Skeleton className="h-10" />
+          <Skeleton className="h-5" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+ListCard.Skeleton = ListCardSkeleton;

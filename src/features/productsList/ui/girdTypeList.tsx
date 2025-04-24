@@ -1,3 +1,5 @@
+'use client';
+
 import { GridCard } from '@/entity/products/ui/gridCard';
 import { useProductInfiniteScroll } from '@/features/productsList/hooks/useProductInfiniteScroll';
 
@@ -18,11 +20,10 @@ export const GridTypeList = () => {
         />
       ))}
 
-      {isFetchingNextPage && (
-        <div className="flex justify-center">
-          <p>데이터를 불러오고 있습니다...</p>
-        </div>
-      )}
+      {isFetchingNextPage &&
+        Array.from({ length: 4 }).map((_, index) => (
+          <GridCard.Skeleton key={index} />
+        ))}
 
       {hasNextPage ? (
         <div ref={ref} />

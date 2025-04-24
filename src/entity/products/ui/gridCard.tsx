@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardTitle,
 } from '@/shared/ui/card';
+import { Skeleton } from '@/shared/ui/skeleton';
 
 type GridCardProps = Omit<Product, 'id'>;
 
@@ -41,3 +42,21 @@ export const GridCard = ({
     </Card>
   );
 };
+
+const GridCardSkeleton = () => {
+  return (
+    <Card>
+      <CardContent className="flex flex-col items-center gap-6">
+        <Skeleton className="h-[150px] w-[150px]" />
+
+        <div className="flex w-full flex-col justify-between gap-2">
+          <Skeleton className="h-10" />
+          <Skeleton className="h-40" />
+          <Skeleton className="h-10" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+GridCard.Skeleton = GridCardSkeleton;

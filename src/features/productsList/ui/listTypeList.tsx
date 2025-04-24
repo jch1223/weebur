@@ -23,7 +23,7 @@ export const ListTypeList = () => {
 
       {isFetchingNextPage && (
         <div className="flex justify-center">
-          <p>데이터를 불러오고 있습니다...</p>
+          <ListCard.Skeleton />
         </div>
       )}
 
