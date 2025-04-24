@@ -9,7 +9,11 @@ export default function DashboardLayout({
   return (
     <html lang="ko">
       <body>
-        <ReactQueryProviders>{children}</ReactQueryProviders>
+        <main className="flex justify-center">
+          <div className="mx-4 mb-20 w-full max-w-[960px]">
+            <ReactQueryProviders>{children}</ReactQueryProviders>
+          </div>
+        </main>
       </body>
     </html>
   );
