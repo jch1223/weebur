@@ -1,12 +1,17 @@
 'use client';
 
+import { Product } from '@/entity/products/api/productsApi';
 import { ListCard } from '@/entity/products/ui/listCard';
-import { useProductInfiniteScroll } from '@/features/productsList/hooks/useProductInfiniteScroll';
 
-export const ListTypeList = () => {
-  const { data, ref, hasNextPage, isFetchingNextPage } =
-    useProductInfiniteScroll();
+interface ListTypeListProps {
+  data: Product[];
+  isFetchingNextPage: boolean;
+}
 
+export const ListTypeList = ({
+  data,
+  isFetchingNextPage,
+}: ListTypeListProps) => {
   return (
     <div className="flex flex-col gap-4">
       {data.map((product) => (
@@ -23,14 +28,6 @@ export const ListTypeList = () => {
       {isFetchingNextPage && (
         <div className="flex justify-center">
           <ListCard.Skeleton />
-        </div>
-      )}
-
-      {hasNextPage ? (
-        <div ref={ref} />
-      ) : (
-        <div className="flex justify-center">
-          <p>더 이상 불러올 수 없습니다.</p>
         </div>
       )}
     </div>

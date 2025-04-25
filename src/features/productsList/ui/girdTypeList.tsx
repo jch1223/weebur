@@ -1,12 +1,17 @@
 'use client';
 
 import { GridCard } from '@/entity/products/ui/gridCard';
-import { useProductInfiniteScroll } from '@/features/productsList/hooks/useProductInfiniteScroll';
+import { Product } from '@/entity/products/api/productsApi';
 
-export const GridTypeList = () => {
-  const { data, ref, hasNextPage, isFetchingNextPage } =
-    useProductInfiniteScroll();
+interface GridTypeListProps {
+  data: Product[];
+  isFetchingNextPage: boolean;
+}
 
+export const GridTypeList = ({
+  data,
+  isFetchingNextPage,
+}: GridTypeListProps) => {
   return (
     <div className="grid grid-cols-4 gap-4 md:grid-cols-4 lg:grid-cols-4">
       {data.map((product) => (
@@ -24,14 +29,6 @@ export const GridTypeList = () => {
         Array.from({ length: 4 }).map((_, index) => (
           <GridCard.Skeleton key={index} />
         ))}
-
-      {hasNextPage ? (
-        <div ref={ref} />
-      ) : (
-        <div className="flex justify-center">
-          <p>더 이상 불러올 수 없습니다.</p>
-        </div>
-      )}
     </div>
   );
 };
