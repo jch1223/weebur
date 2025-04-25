@@ -5,24 +5,25 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 const productsQueryKey = {
   all: ['products'],
+  filter: (filter: ProductsFilter) => [...productsQueryKey.all, filter],
 };
 
 const DEFAULT_LIMIT = 20;
 const DEFAULT_SKIP = 0;
 
 export const useProductsQuery = ({
-  search = '',
+  query = '',
   order,
   sortBy,
 }: ProductsFilter) => {
   return useSuspenseInfiniteQuery({
     initialPageParam: DEFAULT_SKIP,
-    queryKey: productsQueryKey.all,
+    queryKey: productsQueryKey.filter({ query, order, sortBy }),
     queryFn: ({ pageParam }) =>
       productsApi.getProducts({
         limit: DEFAULT_LIMIT,
         skip: pageParam,
-        filter: { search, order, sortBy },
+        filter: { query, order, sortBy },
       }),
     getNextPageParam: (lastPage) => {
       if (lastPage.total <= lastPage.skip + lastPage.limit) {

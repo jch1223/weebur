@@ -1,8 +1,10 @@
 import ky from 'ky';
 
+export type SortByOptions = 'rating' | (string & {});
+
 export interface ProductsFilter {
-  search?: string;
-  sortBy?: 'rating';
+  query?: string;
+  sortBy?: SortByOptions;
   order?: 'asc' | 'desc';
 }
 
@@ -42,7 +44,7 @@ export const productsApi = {
       'https://dummyjson.com/products/search',
       {
         searchParams: {
-          q: filter?.search ?? '',
+          q: filter?.query ?? '',
           sortBy: filter?.sortBy ?? '',
           order: filter?.order ?? '',
           skip: skip.toString(),

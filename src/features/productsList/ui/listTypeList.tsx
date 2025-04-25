@@ -6,7 +6,6 @@ import { useProductInfiniteScroll } from '@/features/productsList/hooks/useProdu
 export const ListTypeList = () => {
   const { data, ref, hasNextPage, isFetchingNextPage } =
     useProductInfiniteScroll();
-  console.log(isFetchingNextPage);
 
   return (
     <div className="flex flex-col gap-4">
