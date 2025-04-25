@@ -12,12 +12,12 @@ type FilterValue<T extends FilterKey> = T extends 'query'
 type Filter<T extends FilterKey> = {
   [K in T]: {
     key: K;
-    defaultValue?: FilterValue<K>;
+    defaultValue?: FilterValue<K> | '';
   };
 };
 
 export const FILTERS: Filter<FilterKey> = {
-  query: { key: 'query' },
-  sortBy: { key: 'sortBy' },
-  order: { key: 'order' },
+  query: { key: 'query', defaultValue: '' },
+  sortBy: { key: 'sortBy', defaultValue: '' },
+  order: { key: 'order', defaultValue: '' },
 };

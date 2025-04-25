@@ -8,13 +8,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui/select';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export type OrderBy = 'default' | 'asc' | 'desc';
 
 export const OrderByRatingSelect = () => {
+  const [selectSortBy, setSelectSortBy] = useState<OrderBy>('default');
+
   const { order, setRatingOrderBySearchParam } = useFilterSearchParams();
-  const [selectSortBy, setSelectSortBy] = useState<OrderBy>(order ?? 'default');
+
+  useLayoutEffect(() => {
+    if (!order) {
+      setSelectSortBy('default');
+      return;
+    }
+
+    setSelectSortBy(order);
+  }, [order]);
 
   const handleSortBy = (value: OrderBy) => {
     setSelectSortBy(value);

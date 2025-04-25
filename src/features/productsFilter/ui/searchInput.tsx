@@ -3,15 +3,25 @@
 import { useFilterSearchParams } from '@/features/productsFilter/model/useFilterSearchParams';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export const SearchInput = () => {
+  const [search, setSearch] = useState('');
+
   const { query, setQuerySearchParam, resetFilter } = useFilterSearchParams();
-  const [search, setSearch] = useState(query ?? '');
+
+  useLayoutEffect(() => {
+    setSearch(query ?? '');
+  }, [query]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setQuerySearchParam(search);
+  };
+
+  const handleReset = () => {
+    setSearch('');
+    resetFilter();
   };
 
   return (
@@ -24,7 +34,7 @@ export const SearchInput = () => {
 
       <div className="flex gap-2">
         <Button type="submit">검색</Button>
-        <Button type="button" variant="outline" onClick={() => resetFilter()}>
+        <Button type="button" variant="outline" onClick={handleReset}>
           초기화
         </Button>
       </div>
