@@ -1,7 +1,7 @@
 'use client';
 
 import { useProductsQuery } from '@/entity/products/api/hooks/useProductsQuery';
-import { useFilterSearchParams } from '@/entity/products/model/useFilterSearchParams';
+import { useFilterSearchParams } from '@/features/productsFilter/model/useFilterSearchParams';
 import { useIntersectionObserver } from '@/shared/hooks/useIntersectionObserver';
 
 export const useProductInfiniteScroll = () => {
