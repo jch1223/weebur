@@ -4,6 +4,7 @@ import { ProductsFilter } from '@/entity/products/api/productsApi';
 import { FILTERS } from '@/features/productsFilter/model/filter';
 import { OrderBy } from '@/features/productsFilter/ui/orderByRatingSelect';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface UseFilterSearchParamsReturn extends ProductsFilter {
   setQuerySearchParam: (query: string) => void;
@@ -12,16 +13,26 @@ interface UseFilterSearchParamsReturn extends ProductsFilter {
 }
 
 export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
+  const [filter, setFilter] = useState<ProductsFilter>({});
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const filters = Object.values(FILTERS).reduce((acc, filter) => {
-    const value = searchParams.get(filter.key) || filter.defaultValue;
-    return {
-      ...acc,
-      [filter.key]: value,
-    };
-  }, {} as ProductsFilter);
+  useEffect(() => {
+    const filters = Object.values(FILTERS).reduce((acc, filter) => {
+      const value = searchParams.get(filter.key) || filter.defaultValue;
+      return {
+        ...acc,
+        [filter.key]: value,
+      };
+    }, {} as ProductsFilter);
+
+    setFilter({
+      query: filters.query,
+      sortBy: filters.sortBy,
+      order: filters.order,
+    });
+  }, [searchParams]);
 
   const setQuerySearchParam = (query: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -54,7 +65,9 @@ export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
   };
 
   return {
-    ...filters,
+    query: filter.query,
+    sortBy: filter.sortBy,
+    order: filter.order,
     setQuerySearchParam,
     setRatingOrderBySearchParam,
     resetFilter,
