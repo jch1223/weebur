@@ -1,8 +1,8 @@
 'use client';
 
-import { useProductInfiniteScroll } from '@/features/productsList/hooks/useProductInfiniteScroll';
-import { GridTypeList } from '@/features/productsList/ui/girdTypeList';
-import { ListTypeList } from '@/features/productsList/ui/listTypeList';
+import { useProductInfiniteScroll } from '@/widgets/catalog/hooks/useProductInfiniteScroll';
+import { GridTypeList } from '@/widgets/catalog/ui/girdTypeList';
+import { ListTypeList } from '@/widgets/catalog/ui/listTypeList';
 
 interface CatalogProps {
   type: 'list' | 'grid';

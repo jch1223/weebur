@@ -5,8 +5,8 @@ import { OrderByRatingSelect } from '@/features/productsFilter/ui/orderByRatingS
 import { Catalog } from '@/widgets/catalog/ui/catalog';
 import { Suspense } from 'react';
 import { useABTestList } from './model/useABTestList';
-import { GridTypeList } from '@/features/productsList/ui/girdTypeList';
-import { ListTypeList } from '@/features/productsList/ui/listTypeList';
+import { GridTypeList } from '@/widgets/catalog/ui/girdTypeList';
+import { ListTypeList } from '@/widgets/catalog/ui/listTypeList';
 
 export default function Home() {
   const { listType } = useABTestList();
