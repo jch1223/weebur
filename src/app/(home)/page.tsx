@@ -30,7 +30,7 @@ export default function Home() {
           )
         }
       >
-        <Catalog type={listType} />
+        {listType && <Catalog type={listType} />}
       </Suspense>
     </div>
   );

@@ -14,7 +14,7 @@ const getRandomListType = () => {
 };
 
 export const useABTestList = () => {
-  const [listType, setListType] = useState<'list' | 'grid'>('list');
+  const [listType, setListType] = useState<'list' | 'grid' | null>(null);
 
   useLayoutEffect(() => {
     if (!localStorage.getItem('listType')) {
