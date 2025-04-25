@@ -1,6 +1,5 @@
 'use client';
 
-import { OrderBy } from '@/features/productsFilter/model/types';
 import { useFilterSearchParams } from '@/features/productsFilter/model/useFilterSearchParams';
 import {
   Select,
@@ -10,6 +9,8 @@ import {
   SelectValue,
 } from '@/shared/ui/select';
 import { useState } from 'react';
+
+export type OrderBy = 'default' | 'asc' | 'desc';
 
 export const OrderByRatingSelect = () => {
   const { order, setRatingOrderBySearchParam } = useFilterSearchParams();

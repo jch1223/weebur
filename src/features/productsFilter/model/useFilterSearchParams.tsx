@@ -1,7 +1,8 @@
 'use client';
 
 import { ProductsFilter } from '@/entity/products/api/productsApi';
-import { OrderBy } from '@/features/productsFilter/model/types';
+import { FILTERS } from '@/features/productsFilter/model/filter';
+import { OrderBy } from '@/features/productsFilter/ui/orderByRatingSelect';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface UseFilterSearchParamsReturn extends ProductsFilter {
@@ -13,13 +14,14 @@ interface UseFilterSearchParamsReturn extends ProductsFilter {
 export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const queryParam = searchParams.get('query') || '';
-  const sortByParam = searchParams.get('sortBy') || '';
-  const orderParam = searchParams.get('order') || '';
 
-  const sortBy = sortByParam === 'rating' ? 'rating' : undefined;
-  const order =
-    orderParam === 'asc' || orderParam === 'desc' ? orderParam : undefined;
+  const filters = Object.values(FILTERS).reduce((acc, filter) => {
+    const value = searchParams.get(filter.key) || filter.defaultValue;
+    return {
+      ...acc,
+      [filter.key]: value,
+    };
+  }, {} as ProductsFilter);
 
   const setQuerySearchParam = (query: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -42,13 +44,17 @@ export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
   };
 
   const resetFilter = () => {
-    router.push('/');
+    const newParams = new URLSearchParams();
+
+    Object.values(FILTERS).forEach((filter) => {
+      newParams.delete(filter.key);
+    });
+
+    router.push(`?${newParams.toString()}`);
   };
 
   return {
-    query: queryParam,
-    sortBy,
-    order,
+    ...filters,
     setQuerySearchParam,
     setRatingOrderBySearchParam,
     resetFilter,
