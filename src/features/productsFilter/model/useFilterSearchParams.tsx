@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 interface UseFilterSearchParamsReturn extends ProductsFilter {
   setQuerySearchParam: (query: string) => void;
   setRatingOrderBySearchParam: (sortBy: OrderBy) => void;
+  resetFilter: () => void;
 }
 
 export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
@@ -40,11 +41,16 @@ export const useFilterSearchParams = (): UseFilterSearchParamsReturn => {
     router.push(`?${newParams.toString()}`);
   };
 
+  const resetFilter = () => {
+    router.push('/');
+  };
+
   return {
     query: queryParam,
     sortBy,
     order,
     setQuerySearchParam,
     setRatingOrderBySearchParam,
+    resetFilter,
   };
 };

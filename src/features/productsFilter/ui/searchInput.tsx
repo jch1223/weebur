@@ -6,9 +6,8 @@ import { Input } from '@/shared/ui/input';
 import { useState } from 'react';
 
 export const SearchInput = () => {
-  const [search, setSearch] = useState('');
-
-  const { setQuerySearchParam } = useFilterSearchParams();
+  const { query, setQuerySearchParam, resetFilter } = useFilterSearchParams();
+  const [search, setSearch] = useState(query ?? '');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +22,12 @@ export const SearchInput = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <Button type="submit">검색</Button>
+      <div className="flex gap-2">
+        <Button type="submit">검색</Button>
+        <Button type="button" variant="outline" onClick={() => resetFilter()}>
+          초기화
+        </Button>
+      </div>
     </form>
   );
 };
