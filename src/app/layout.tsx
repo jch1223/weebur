@@ -10,7 +10,7 @@ export default function DashboardLayout({
     <html lang="ko">
       <body>
         <main className="flex justify-center">
-          <div className="mx-4 mb-20 w-full max-w-[960px]">
+          <div className="mx-4 my-20 w-full max-w-[960px]">
             <ReactQueryProviders>{children}</ReactQueryProviders>
           </div>
         </main>
