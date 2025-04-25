@@ -1,4 +1,4 @@
-import '@/styles/globals.css';
+import '@/shared/styles/globals.css';
 import ReactQueryProviders from '@/app/provider/ReactQueryProvider';
 
 export default function DashboardLayout({
