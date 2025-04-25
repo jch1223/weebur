@@ -32,3 +32,15 @@ export const GridTypeList = ({
     </div>
   );
 };
+
+const GridTypeListSkeleton = () => {
+  return (
+    <div className="grid grid-cols-4 gap-4 md:grid-cols-4 lg:grid-cols-4">
+      {Array.from({ length: 20 }).map((_, index) => (
+        <GridCard.Skeleton key={index} />
+      ))}
+    </div>
+  );
+};
+
+GridTypeList.Skeleton = GridTypeListSkeleton;

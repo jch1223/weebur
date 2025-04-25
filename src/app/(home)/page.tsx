@@ -5,6 +5,8 @@ import { OrderByRatingSelect } from '@/features/productsFilter/ui/orderByRatingS
 import { Catalog } from '@/widgets/catalog/ui/catalog';
 import { Suspense } from 'react';
 import { useABTestList } from './model/useABTestList';
+import { GridTypeList } from '@/features/productsList/ui/girdTypeList';
+import { ListTypeList } from '@/features/productsList/ui/listTypeList';
 
 export default function Home() {
   const { listType } = useABTestList();
@@ -19,7 +21,15 @@ export default function Home() {
         <OrderByRatingSelect />
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          listType === 'grid' ? (
+            <GridTypeList.Skeleton />
+          ) : (
+            <ListTypeList.Skeleton />
+          )
+        }
+      >
         <Catalog type={listType} />
       </Suspense>
     </div>

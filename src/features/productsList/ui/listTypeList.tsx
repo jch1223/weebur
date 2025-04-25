@@ -33,3 +33,15 @@ export const ListTypeList = ({
     </div>
   );
 };
+
+const ListTypeListSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      {Array.from({ length: 20 }).map((_, index) => (
+        <ListCard.Skeleton key={index} />
+      ))}
+    </div>
+  );
+};
+
+ListTypeList.Skeleton = ListTypeListSkeleton;
