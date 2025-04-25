@@ -1,40 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+# 프로젝트 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 요구사항
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## UI
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [x] 페이지 진입 시, 20개의 아이템이 기본으로 노출되어야 합니다.
+- [x] 리스트형 (List) 및 그리드형 (Grid) 두 가지 뷰 방식이 존재합니다.
+- [x] 페이지 최초 진입 시 50% 확률로 랜덤하게 View 방식 결정되고, 24시간 동안 유지됩니다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 검색 필터
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [x] 문자열 검색이 가능해야 합니다.
+- [x] 별점 (`rating`) 내림차순으로 정렬이 가능해야 합니다.
+- [x] 검색 버튼이 존재하고, 새로고침 후에도 필터 값이 유지되어야 합니다.
+- [x] 검색 결과가 없을 경우 `일치하는 결과가 없습니다.` 문구가 표시되어야 합니다.
 
-## Learn More
+## 무한 스크롤
 
-To learn more about Next.js, take a look at the following resources:
+- [x] 페이지 하단 도달 시 다음 20개의 아이템이 자동으로 로드 되어야 합니다.
+- [x] 필터 결과에도 무한 스크롤이 적용 되어야 합니다.
+- [x] 마지막 데이터까지 로딩되면 `더 이상 불러올 수 없습니다.` 문구가 표시되어야 합니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+# 폴더 구조
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/              # Next.js App Router 디렉토리 (페이지, 레이아웃)
+│   └── (home)/       # 홈 페이지 그룹
+│
+├── entity/           # 도메인 엔티티 (데이터 모델, API 클라이언트)
+│   └── products/     # 상품 관련 엔티티
+│       ├── api/      # API 호출 로직
+│
+├── features/         # 기능 모듈 (비즈니스 로직)
+│   └── productsFilter/ # 상품 필터 기능
+│
+├── widgets/          # 복합 UI 컴포넌트
+│   └── catalog/      # 카탈로그 위젯
+│
+├── shared/           # 공유 리소스
+│   ├── ui/           # 디자인 시스템
+│   ├── lib/          # 범용 유틸리티 함수
+│   ├── styles/       # 전역 스타일 정의
+│   └── hooks/        # 공통 훅
+```
 
-## Deploy on Vercel
+폴더 구조는 FSD 아키텍쳐를 기반으로 분리하였습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- entity: products 데이터에 대한 로직들을 위치하였습니다.
+- features: 유저의 행동에 대한 관심사를 기준으로 위치하였습니다.
+- widgets: 독립적으로 존재할 수 있는 컴포넌트를 기준으로 위치하였습니다.
+- shared: 공통 리소스를 위치하였습니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+# 추가 사항
+
+- `새로고침 후에도 필터 값이 유지되어야 합니다.`에 대한 구현으로 로컬 스토리지와 query string 방식 중에 고민하다가 필터 값ㅇ르 브라우저 히스토리로 남길 수 있는 query string 방식을 사용하였습니다.
+- rating에 대한 정렬도 선택 후 검색을 눌렀을 때 반영되게 하여야 하는지 고민하였는데, 보통 onChange 될 때 변경 되는 UX를 많이 사용하는 것 같아서 onChange 될 때 변경 되도록 구현하였습니다.
